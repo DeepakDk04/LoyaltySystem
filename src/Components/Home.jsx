@@ -19,6 +19,9 @@ import Signup from "../Pages/Consumer/Signup";
 import Support from "../Components/Consumer/Support";
 import TransactionHistory from "../Components/Consumer/TransactionHistory";
 import VerifyConsumer from "../Pages/Consumer/VerifyConsumer";
+import About from "../Pages/Common/About";
+import Feautures from "../Pages/Common/Feautures";
+import Contact from "../Pages/Common/Contact";
 
 const theme = createTheme({
   palette: {
@@ -38,6 +41,9 @@ const Home = () => {
       <Router>
         <Routes>
           <Route path="/" index element={<Landing />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/feautures" element={<Feautures />} />
+          <Route path="/contact" element={<Contact />} />
 
           <Route path="/consumer" element={<ConsumerLayout />}>
             <Route path="signup" element={<Signup />} />
