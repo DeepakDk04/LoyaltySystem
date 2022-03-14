@@ -17,11 +17,13 @@ import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import TryIcon from "@mui/icons-material/Try";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CopyRight from "../../Components/CopyRight";
-import Hero from "../../Images/hero.svg";
+import Hero from "../../Images/healthy.svg";
+import CokkieConsentBar from "../../Components/CokkieConsentBar";
 
 const Landing = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -32,16 +34,25 @@ const Landing = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const moreIconHandleClose = () => {
+  const moreIconHandleClose = (url) => {
     setAnchorEl(null);
+    navigate(url);
   };
   return (
     <Box>
       <AppBar
-        position="relative"
+        position="sticky"
         enableColorOnDark
-        color="transparent"
-        sx={{ py: 2 }}
+        sx={{
+          py: 2,
+          boxShadow: "none",
+          backdropFilter: "blur(8px)",
+          borderStyle: "solid",
+          borderColor: "#E7EBF0",
+          borderWidth: "0",
+          background: "rgba(255,255,255,0.7)",
+          color: "#2D384",
+        }}
         elevation={0}
       >
         <Toolbar disableGutters>
@@ -78,31 +89,32 @@ const Landing = () => {
               "aria-labelledby": "more icon for nav links ",
             }}
           >
-            <MenuItem onClick={moreIconHandleClose}>
+            <MenuItem onClick={(e) => moreIconHandleClose("/about")}>
               <ListItemIcon>
                 <InfoIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText sx={{ color: "#1976d2" }}>About</ListItemText>
             </MenuItem>
-            <MenuItem onClick={moreIconHandleClose}>
+            <MenuItem onClick={(e) => moreIconHandleClose("/feautures")}>
               <ListItemIcon>
                 <TryIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText sx={{ color: "#1976d2" }}>Feautures</ListItemText>
             </MenuItem>
-            <MenuItem onClick={moreIconHandleClose}>
+            <MenuItem onClick={(e) => moreIconHandleClose("/contact")}>
               <ListItemIcon>
                 <SupportAgentIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText sx={{ color: "#1976d2" }}>Contact</ListItemText>
             </MenuItem>
-            <MenuItem onClick={(e) => navigate("/login")}>
+            <MenuItem onClick={(e) => moreIconHandleClose("/login")}>
               <ListItemIcon>
                 <LoginIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText sx={{ color: "#1976d2" }}>Login</ListItemText>
             </MenuItem>
           </Menu>
+
           <Box
             sx={{
               flexGrow: 1,
@@ -115,6 +127,7 @@ const Landing = () => {
               variant="outlined"
               sx={{ mx: 2, color: "primary" }}
               startIcon={<InfoIcon />}
+              href="/about"
             >
               About
             </Button>
@@ -122,6 +135,7 @@ const Landing = () => {
               variant="outlined"
               sx={{ mx: 2, color: "primary" }}
               startIcon={<TryIcon />}
+              href="/feautures"
             >
               Features
             </Button>
@@ -129,6 +143,7 @@ const Landing = () => {
               variant="outlined"
               sx={{ mx: 2, color: "primary" }}
               startIcon={<SupportAgentIcon />}
+              href="/contact"
             >
               Contact
             </Button>
@@ -148,35 +163,10 @@ const Landing = () => {
         <Box sx={{ flexGrow: 1, mt: 1 }}>
           <Grid
             container
-            direction="row-reverse"
+            direction="row"
             justifyContent="space-evenly"
             alignItems="center"
           >
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              {/* desktop img */}
-              <Box sx={{ display: { xs: "none", md: "block" } }}>
-                <img
-                  src={Hero}
-                  alt="hero img"
-                  height={"600px"}
-                  width={"600px"}
-                />
-              </Box>
-              {/* mobile img */}
-              <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
-                <img
-                  src={Hero}
-                  alt="hero img"
-                  height={"260px"}
-                  width={"260px"}
-                />
-              </Box>
-            </Grid>
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
@@ -191,8 +181,63 @@ const Landing = () => {
                     align="center"
                     color="text.primary"
                     gutterBottom
+                    sx={{ display: { xs: "none", md: "block" } }}
                   >
-                    Loyalty Points System
+                    <Box
+                      component="span"
+                      sx={{
+                        textTransform: "uppercase",
+                        fontWeight: "bold",
+                        backgroundImage:
+                          "linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%)",
+                        backgroundSize: "200% auto",
+                        backgroundClip: "text",
+                        fill: "transparent",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        animation: "textclip 5s linear infinite",
+                        "@keyframes textclip": {
+                          to: {
+                            backgroundPosition: "200% center",
+                          },
+                        },
+                      }}
+                    >
+                      Loyalty
+                    </Box>{" "}
+                    Points System
+                  </Typography>
+                  <Typography
+                    component="h1"
+                    variant="h3"
+                    align="center"
+                    color="text.primary"
+                    gutterBottom
+                    sx={{ display: { xs: "inline-block", md: "none" } }}
+                  >
+                    <Box
+                      component="span"
+                      sx={{
+                        textTransform: "uppercase",
+                        fontWeight: "bold",
+                        backgroundImage:
+                          "linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%)",
+                        backgroundSize: "200% auto",
+                        backgroundClip: "text",
+                        fill: "transparent",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        animation: "textclip 5s linear infinite",
+                        "@keyframes textclip": {
+                          to: {
+                            backgroundPosition: "200% center",
+                          },
+                        },
+                      }}
+                    >
+                      Loyalty
+                    </Box>{" "}
+                    Points System
                   </Typography>
                   <Typography
                     variant="h5"
@@ -210,20 +255,65 @@ const Landing = () => {
                     spacing={2}
                     justifyContent="center"
                   >
-                    <Button variant="contained" href="/consumer/signup">
+                    <Button
+                      variant="contained"
+                      href="/consumer/signup"
+                      endIcon={<KeyboardArrowRightIcon />}
+                    >
                       Get Started
                     </Button>
                   </Stack>
                 </Container>
               </Box>
             </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                animation: "float 3s linear infinite alternate",
+                "@keyframes float": {
+                  "0%": {
+                    transform: "translatey(-6px)",
+                  },
+                  "50%": {
+                    transform: "translatey(6px)",
+                  },
+                  "100%": {
+                    transform: "translatey(0px)",
+                  },
+                },
+              }}
+            >
+              {/* desktop img */}
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <img
+                  src={Hero}
+                  alt="hero img"
+                  height={"600px"}
+                  width={"600px"}
+                />
+              </Box>
+              {/* mobile img */}
+              <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
+                <img
+                  src={Hero}
+                  alt="hero img"
+                  height={"300px"}
+                  width={"300px"}
+                />
+              </Box>
+            </Grid>
           </Grid>
         </Box>
       </Box>
+      <CokkieConsentBar />
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Designed & Developed - Deepak Dk
         </Typography>
         <Typography
           variant="subtitle1"
@@ -231,7 +321,7 @@ const Landing = () => {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          All Rights Reserved !
         </Typography>
         <CopyRight />
       </Box>
