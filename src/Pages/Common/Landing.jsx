@@ -13,7 +13,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
-import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import TryIcon from "@mui/icons-material/Try";
@@ -21,9 +20,21 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CopyRight from "../../Components/CopyRight";
 import Hero from "../../Images/healthy.svg";
+import secondHero from "../../Images/money.svg";
 import CokkieConsentBar from "../../Components/CokkieConsentBar";
+
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+
+import logo from "../../Images/logoCircle.png";
+import happyCustomer from "../../Images/dancing.svg";
+
+import customerSupport from "../../Images/startup.svg";
+import businessDeal from "../../Images/businessDeal.svg";
+import Footer from "./Footer";
+import GlowingText from "../../Components/GlowingText";
 
 const Landing = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,6 +49,55 @@ const Landing = () => {
     setAnchorEl(null);
     navigate(url);
   };
+
+  const Feautured = ({ image, title, subtitle1, subtitle2, content }) => {
+    return (
+      <Box
+        sx={{
+          "& :hover": {
+            transform: "translatey(-10px)",
+            transform: "scale(1.1)",
+          },
+        }}
+      >
+        <Card
+          sx={{
+            width: { xs: 250, md: 280 },
+            height: { xs: 320, md: 350 },
+            m: "15px 0px",
+            background:
+              "linear-gradient(45deg, rgba(0, 89, 255, 0.66), rgba(143, 199, 255, 0.69))",
+            borderRadius: "5%",
+            boxShadow: "17px 16px 48px -11px rgba(0,0,0,0.75)",
+            color: "#fff",
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="150px"
+            width="150px"
+            image={image}
+            alt={title}
+          />
+          <CardContent>
+            <Typography gutterBottom align="center">
+              {title}
+            </Typography>
+            <Typography variant="h5" component="div" align="center">
+              {subtitle1}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} align="center">
+              {subtitle2}
+            </Typography>
+            <Typography variant="body2" align="center">
+              {content}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+  };
+
   return (
     <Box>
       <AppBar
@@ -56,12 +116,27 @@ const Landing = () => {
         elevation={0}
       >
         <Toolbar disableGutters>
-          <LoyaltyIcon color="primary" sx={{ mx: { xs: 1, md: 2 } }} />
+          <Box
+            sx={{
+              mx: { xs: 4, md: 8 },
+              animation: "rotate 8s linear infinite alternate",
+              "@keyframes rotate": {
+                "0%": {
+                  transform: "rotate(0deg)",
+                },
+                "100%": {
+                  transform: "rotate(360deg)",
+                },
+              },
+            }}
+          >
+            <img src={logo} alt="logo" width={48} height={48} />
+          </Box>
           <Typography
             variant="h6"
             color="primary"
             noWrap
-            sx={{ display: { xs: "none", md: "block" }, mx: 15 }}
+            sx={{ display: { xs: "none", md: "block" }, ml: -4 }}
           >
             Loyalty Point Management System
           </Typography>
@@ -69,7 +144,7 @@ const Landing = () => {
             variant="h6"
             color="primary"
             noWrap
-            sx={{ display: { xs: "block", md: "none" }, mx: 3 }}
+            sx={{ display: { xs: "block", md: "none" }, mr: 2 }}
           >
             Loyalty Point System
           </Typography>
@@ -78,7 +153,7 @@ const Landing = () => {
             onClick={moreIconHandleClick}
             sx={{ display: { xs: "inline", md: "none" } }}
           >
-            <MoreVertIcon />
+            <MoreVertIcon color="primary" />
           </IconButton>
           <Menu
             id="more icon for nav links"
@@ -160,7 +235,7 @@ const Landing = () => {
       </AppBar>
       <Box component="main">
         {/* Hero unit */}
-        <Box sx={{ flexGrow: 1, mt: 1 }}>
+        <Box sx={{ flexGrow: 1, mt: { xs: 1, md: "-30px" } }}>
           <Grid
             container
             direction="row"
@@ -170,8 +245,7 @@ const Landing = () => {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  bgcolor: "background.paper",
-                  py: 8,
+                  py: { xs: 0, md: 8 },
                 }}
               >
                 <Container maxWidth="sm">
@@ -183,29 +257,7 @@ const Landing = () => {
                     gutterBottom
                     sx={{ display: { xs: "none", md: "block" } }}
                   >
-                    <Box
-                      component="span"
-                      sx={{
-                        textTransform: "uppercase",
-                        fontWeight: "bold",
-                        backgroundImage:
-                          "linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%)",
-                        backgroundSize: "200% auto",
-                        backgroundClip: "text",
-                        fill: "transparent",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        animation: "textclip 5s linear infinite",
-                        "@keyframes textclip": {
-                          to: {
-                            backgroundPosition: "200% center",
-                          },
-                        },
-                      }}
-                    >
-                      Loyalty
-                    </Box>{" "}
-                    Points System
+                    <GlowingText text="Loyalty" /> Points System
                   </Typography>
                   <Typography
                     component="h1"
@@ -215,29 +267,7 @@ const Landing = () => {
                     gutterBottom
                     sx={{ display: { xs: "inline-block", md: "none" } }}
                   >
-                    <Box
-                      component="span"
-                      sx={{
-                        textTransform: "uppercase",
-                        fontWeight: "bold",
-                        backgroundImage:
-                          "linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%)",
-                        backgroundSize: "200% auto",
-                        backgroundClip: "text",
-                        fill: "transparent",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        animation: "textclip 5s linear infinite",
-                        "@keyframes textclip": {
-                          to: {
-                            backgroundPosition: "200% center",
-                          },
-                        },
-                      }}
-                    >
-                      Loyalty
-                    </Box>{" "}
-                    Points System
+                    <GlowingText text="Loyalty  Points" /> System
                   </Typography>
                   <Typography
                     variant="h5"
@@ -285,6 +315,7 @@ const Landing = () => {
                     transform: "translatey(0px)",
                   },
                 },
+                zIndex: -1,
               }}
             >
               {/* desktop img */}
@@ -308,24 +339,159 @@ const Landing = () => {
             </Grid>
           </Grid>
         </Box>
+        {/* section 2 */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            gap: "10px",
+            m: "50px 20px",
+            mt: { xs: 0, md: "-3px" },
+            p: "50px 20px",
+            background: "linear-gradient(45deg, #fc466b 0%, #1976d2fc 100%)",
+            borderRadius: "20px",
+          }}
+        >
+          <Feautured
+            image={happyCustomer}
+            title="Happy Customer"
+            subtitle1="Earn Money"
+            subtitle2="Happy Shopping"
+            content="Offers points for your purchases"
+          />
+          <Feautured
+            image={customerSupport}
+            title="Customer Support"
+            subtitle1="Clear Queries"
+            subtitle2="24 X 7 available"
+            content="Quick support to your queries"
+          />
+          <Feautured
+            image={businessDeal}
+            title="Improve Business"
+            subtitle1="Customer Reach"
+            subtitle2="Increase the sales"
+            content="offer a great service to improve business"
+          />
+        </Box>
+
+        {/* section 3  */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            mt: 1,
+            background: "linear-gradient(90deg, #eeaeca 0%, #94bbe9 100%)",
+          }}
+        >
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                animation: "float 3s linear infinite alternate",
+                "@keyframes float": {
+                  "0%": {
+                    transform: "translatey(-6px)",
+                  },
+                  "50%": {
+                    transform: "translatey(6px)",
+                  },
+                  "100%": {
+                    transform: "translatey(0px)",
+                  },
+                },
+              }}
+            >
+              {/* desktop img */}
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <img
+                  src={secondHero}
+                  alt="Money Bag"
+                  height={"600px"}
+                  width={"600px"}
+                />
+              </Box>
+              {/* mobile img */}
+              <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
+                <img
+                  src={secondHero}
+                  alt="Money Bag"
+                  height={"300px"}
+                  width={"300px"}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  py: 8,
+                }}
+              >
+                <Container maxWidth="sm">
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    color="text.primary"
+                    gutterBottom
+                    sx={{ display: { xs: "none", md: "block" } }}
+                  >
+                    <GlowingText text="Save Money" />
+                    Through Points
+                  </Typography>
+                  <Typography
+                    component="h1"
+                    variant="h3"
+                    align="center"
+                    color="text.primary"
+                    gutterBottom
+                    sx={{ display: { xs: "inline-block", md: "none" } }}
+                  >
+                    <GlowingText text="Save Money" /> Through Points
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    align="center"
+                    color="text.primary"
+                    paragraph
+                  >
+                    Create a points-based loyalty program with various earning
+                    rules. Reward customers for their purchases, behavior, or
+                    specific interactions.
+                  </Typography>
+                  <Stack
+                    sx={{ pt: 4 }}
+                    direction="row"
+                    spacing={2}
+                    justifyContent="center"
+                  >
+                    <Button
+                      variant="contained"
+                      href="/consumer/signup"
+                      endIcon={<KeyboardArrowRightIcon />}
+                      color="primary"
+                    >
+                      Read More
+                    </Button>
+                  </Stack>
+                </Container>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
       <CokkieConsentBar />
-      {/* Footer */}
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Designed & Developed - Deepak Dk
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          All Rights Reserved !
-        </Typography>
-        <CopyRight />
-      </Box>
-      {/* End footer */}
+      <Footer />
     </Box>
   );
 };
