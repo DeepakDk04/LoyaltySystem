@@ -23,8 +23,39 @@ const CokkieConsentBar = () => {
     >
       This website uses cookies to enhance the user experience.{" "}
       <span style={{ fontSize: "10px" }}>
-        I agree to use cokkies according to the <button>Privacy Policy</button>{" "}
-        and <button>Terms and Conditions</button>.
+        I agree to use cokkies according to the{" "}
+        <button
+          style={{
+            color: "#fff",
+            fontSize: "10px",
+            borderRadius: "5px",
+            background: "grey",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+          onClick={(e) =>
+            alert("We have strict policies to protect your privacy")
+          }
+        >
+          Privacy Policy
+        </button>{" "}
+        and{" "}
+        <button
+          style={{
+            color: "#fff",
+            fontSize: "10px",
+            borderRadius: "5px",
+            background: "grey",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+          onClick={(e) =>
+            alert("We have certain terms and condition to run our business")
+          }
+        >
+          Terms and Conditions
+        </button>
+        .
       </span>
     </CookieConsent>
   );
