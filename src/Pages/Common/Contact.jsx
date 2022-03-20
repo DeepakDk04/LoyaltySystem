@@ -1,20 +1,181 @@
+import AppBar from "@mui/material/AppBar";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 
-import Typography from "@mui/material/Typography";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Stack from "@mui/material/Stack";
+import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from "@mui/icons-material/Login";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import CopyRight from "../../Components/CopyRight";
+import TryIcon from "@mui/icons-material/Try";
+import Typography from "@mui/material/Typography";
+import HomeIcon from "@mui/icons-material/Home";
+import Wave from "../../Images/wave-bg.svg";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Hero from "../../Images/chatting.svg";
+import Footer from "./Footer";
+import logo from "../../Images/logoCircle.png";
+import GlowingText from "../../Components/GlowingText";
+
 const Contact = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  let navigate = useNavigate();
+  const moreIconOpen = Boolean(anchorEl);
+
+  const moreIconHandleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const moreIconHandleClose = (url) => {
+    setAnchorEl(null);
+    navigate(url);
+  };
+
   return (
     <Box>
-      <Box component="main">
+      <AppBar
+        position="sticky"
+        enableColorOnDark
+        sx={{
+          mb: { xs: -8, md: -12 },
+          py: 2,
+          boxShadow: "none",
+          backdropFilter: "blur(8px)",
+          borderStyle: "solid",
+          borderColor: "#E7EBF0",
+          borderWidth: "0",
+          background: "rgba(255,255,255,0.7)",
+          color: "#2D384",
+        }}
+        elevation={0}
+      >
+        <Toolbar disableGutters>
+          <Box sx={{ mx: { xs: 4, md: 8 } }}>
+            <img src={logo} alt="logo" width={48} height={48} />
+          </Box>
+          <Typography
+            variant="h6"
+            color="primary"
+            noWrap
+            sx={{ display: { xs: "none", md: "block" }, ml: -4 }}
+          >
+            Loyalty Point Management System
+          </Typography>
+          <Typography
+            variant="h6"
+            color="primary"
+            noWrap
+            sx={{ display: { xs: "block", md: "none" }, mr: 2 }}
+          >
+            Loyalty Point System
+          </Typography>
+          <IconButton
+            aria-label="settings"
+            onClick={moreIconHandleClick}
+            sx={{ display: { xs: "inline", md: "none" } }}
+          >
+            <MoreVertIcon color="primary" />
+          </IconButton>
+          <Menu
+            id="more icon for nav links"
+            anchorEl={anchorEl}
+            open={moreIconOpen}
+            onClose={moreIconHandleClose}
+            MenuListProps={{
+              "aria-labelledby": "more icon for nav links ",
+            }}
+          >
+            <MenuItem onClick={(e) => moreIconHandleClose("/")}>
+              <ListItemIcon>
+                <HomeIcon fontSize="small" color="secondary" />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "#1976d2" }}>Home</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={(e) => moreIconHandleClose("/about")}>
+              <ListItemIcon>
+                <InfoIcon fontSize="small" color="secondary" />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "#1976d2" }}>About</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={(e) => moreIconHandleClose("/feautures")}>
+              <ListItemIcon>
+                <TryIcon fontSize="small" color="secondary" />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "#1976d2" }}>Feautures</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={(e) => moreIconHandleClose("/login")}>
+              <ListItemIcon>
+                <LoginIcon fontSize="small" color="secondary" />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "#1976d2" }}>Login</ListItemText>
+            </MenuItem>
+          </Menu>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="outlined"
+              sx={{ mx: 2, color: "primary" }}
+              startIcon={<HomeIcon />}
+              href="/"
+            >
+              Home
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ mx: 2, color: "primary" }}
+              startIcon={<InfoIcon />}
+              href="/about"
+            >
+              About
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ mx: 2, color: "primary" }}
+              startIcon={<TryIcon />}
+              href="/feautures"
+            >
+              Features
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{ mx: 2 }}
+              onClick={(e) => navigate("/login")}
+              startIcon={<LoginIcon />}
+            >
+              Login
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="main"
+        sx={{
+          position: "relative",
+          overflowY: "hidden",
+        }}
+      >
         {/* Hero unit */}
-        <Box sx={{ flexGrow: 1, mt: 1 }}>
+        <Box sx={{ flexGrow: 1, mb: { xs: 1, md: 3 }, mt: { xs: 2, md: 0 } }}>
           <Grid
             container
             direction="row"
@@ -25,7 +186,8 @@ const Contact = () => {
               <Box
                 sx={{
                   bgcolor: "background.paper",
-                  py: 8,
+                  pt: { xs: 5, md: 8 },
+                  pb: { xs: 1, md: 8 },
                 }}
               >
                 <Container maxWidth="sm">
@@ -37,7 +199,7 @@ const Contact = () => {
                     gutterBottom
                     sx={{ display: { xs: "none", md: "block" } }}
                   >
-                    Contact Our Team
+                    <GlowingText text="Contact" /> Our Team
                   </Typography>
                   <Typography
                     component="h1"
@@ -47,7 +209,7 @@ const Contact = () => {
                     gutterBottom
                     sx={{ display: { xs: "inline-block", md: "none" } }}
                   >
-                    Contact Our Team
+                    <GlowingText text="Contact" /> Our Team
                   </Typography>
                   <Typography
                     variant="h5"
@@ -55,9 +217,9 @@ const Contact = () => {
                     color="text.secondary"
                     paragraph
                   >
-                    Create a points-based loyalty program with various earning
-                    rules. Reward customers for their purchases, behavior, or
-                    specific interactions.
+                    Our team will available 24 X 7 for your queries. Our team
+                    wil provide a good solution in a quickest way that best
+                    suits for your issues.
                   </Typography>
                   <Stack
                     sx={{ pt: 4 }}
@@ -65,7 +227,14 @@ const Contact = () => {
                     spacing={2}
                     justifyContent="center"
                   >
-                    <Button variant="contained" endIcon={<SupportAgentIcon />}>
+                    <Button
+                      variant="contained"
+                      endIcon={<SupportAgentIcon />}
+                      href="#"
+                      sx={{
+                        zIndex: 10,
+                      }}
+                    >
                       Contact
                     </Button>
                   </Stack>
@@ -117,6 +286,9 @@ const Contact = () => {
         {/* wave */}
         <Box
           sx={{
+            position: "absolute",
+            bottom: "0",
+            width: "100%",
             animation: "pulse 3s linear infinite alternate",
             "@keyframes pulse": {
               "0%": {
@@ -134,30 +306,11 @@ const Contact = () => {
             },
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path
-              fill="#0099ff"
-              d="M0,128L40,138.7C80,149,160,171,240,186.7C320,203,400,213,480,208C560,203,640,181,720,170.7C800,160,880,160,960,181.3C1040,203,1120,245,1200,240C1280,235,1360,181,1400,154.7L1440,128L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
-            ></path>
-          </svg>
+          <img src={Wave} alt="wave" />
         </Box>
       </Box>
       {/* Footer */}
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Designed & Developed - Deepak Dk
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          All Rights Reserved !
-        </Typography>
-        <CopyRight />
-      </Box>
-      {/* End footer */}
+      <Footer />
     </Box>
   );
 };
