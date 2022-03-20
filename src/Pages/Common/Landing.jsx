@@ -55,7 +55,6 @@ const Landing = () => {
       <Box
         sx={{
           "& :hover": {
-            transform: "translatey(-10px)",
             transform: "scale(1.1)",
           },
         }}
