@@ -62,7 +62,20 @@ const Contact = () => {
         elevation={0}
       >
         <Toolbar disableGutters>
-          <Box sx={{ mx: { xs: 4, md: 8 } }}>
+          <Box
+            sx={{
+              mx: { xs: 4, md: 8 },
+              animation: "rotate 8s linear infinite alternate",
+              "@keyframes rotate": {
+                "0%": {
+                  transform: "rotate(0deg)",
+                },
+                "100%": {
+                  transform: "rotate(360deg)",
+                },
+              },
+            }}
+          >
             <img src={logo} alt="logo" width={48} height={48} />
           </Box>
           <Typography

@@ -446,8 +446,7 @@ const Landing = () => {
                     gutterBottom
                     sx={{ display: { xs: "none", md: "block" } }}
                   >
-                    <GlowingText text="Save Money" />
-                    Through Points
+                    <GlowingText text="Save Money" /> Through Points
                   </Typography>
                   <Typography
                     component="h1"
