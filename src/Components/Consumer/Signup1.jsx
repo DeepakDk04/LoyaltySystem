@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 import { useState, useEffect } from "react";
 
@@ -79,14 +80,18 @@ const Signup1 = ({ userData, handleChange, handleNext }) => {
   }, [errFirstName, errLastName, errAge, errBio]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        p: 2,
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
-          marginBottom: 8,
+          my: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          gap: 1,
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -169,7 +174,7 @@ const Signup1 = ({ userData, handleChange, handleNext }) => {
           href="/login"
           variant="body2"
           sx={{
-            marginTop: 3,
+            mt: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -177,17 +182,20 @@ const Signup1 = ({ userData, handleChange, handleNext }) => {
         >
           Have an Account? Sign IN
         </Link>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="contained"
           onClick={moveNext}
-          sx={{ mt: 3, mr: 3 }}
+          fullWidth
+          sx={{
+            mt: 2,
+          }}
           disabled={isAllFilled()}
+          endIcon={<NavigateNextIcon />}
         >
           Next
         </Button>
       </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}></Box>
     </Box>
   );
 };

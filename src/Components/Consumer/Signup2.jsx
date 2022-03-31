@@ -5,12 +5,14 @@ import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { useState, useEffect } from "react";
 //password strength check
 import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
 import zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import zxcvbnEnPackage from "@zxcvbn-ts/language-en";
+import Tooltip from "@mui/material/Tooltip";
 
 // options for password checker
 const options = {
@@ -130,118 +132,171 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
   }, [errUserName, errEmail, errPassword, errPhoneNo, errConfirmPassword]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        p: 2,
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
-          marginBottom: 8,
+          my: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          gap: 1,
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ bgcolor: "secondary.main" }}>
           <AccountCircleIcon />
         </Avatar>
+
         <Typography component="h1" variant="h5">
           Enter Account Details
         </Typography>
-        <Box component="div" sx={{ mt: 1 }}>
-          <TextField
-            error={errUserName.length !== 0}
-            margin="normal"
-            required
-            fullWidth
-            label="Username"
-            name="userName"
-            value={userData.userName}
-            onChange={handleChange}
-            autoFocus
-            helperText={errUserName}
-          />
-          <TextField
-            error={errEmail.length !== 0}
-            margin="normal"
-            required
-            fullWidth
-            label="Email Address"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-            helperText={errEmail}
-          />
-          <TextField
-            error={errPassword.length !== 0}
-            margin="normal"
-            fullWidth
-            required
-            label="Password"
-            name="password"
-            type="password"
-            value={userData.password}
-            onChange={handleChange}
-            helperText={errPassword}
-          />
-          {userData.password.length > 4 && (
-            <Box>
-              {/* Password Strength Display */}
-              <Typography
-                variant="body2"
-                align="center"
-                color={score < 3 ? "primary" : "success"}
-              >
-                Password Strength
-              </Typography>
-              <LinearProgress
-                variant="determinate"
-                value={getPassStrentgh(score)}
-                color={
-                  score <= 1 ? "error" : score === 2 ? "warning" : "success"
-                }
-              />
-              <Typography variant="subtitle1" color="secondary" align="center">
-                {feedback.warning}
-              </Typography>
-              {feedback.suggestions.length > 1 && (
-                <Typography variant="subtitle2" color="secondary">
-                  Tip : {feedback.suggestions}
-                </Typography>
-              )}
-            </Box>
-          )}
-          <TextField
-            error={errConfirmPassword.length !== 0}
-            margin="normal"
-            fullWidth
-            required
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            helperText={errConfirmPassword}
-          />
-          <TextField
-            error={errPhoneNo.length !== 0}
-            margin="normal"
-            required
-            fullWidth
-            label="Phone Number"
-            name="phoneNo"
-            value={userData.phoneNo}
-            onChange={handleChange}
-            helperText={errPhoneNo}
-          />
+
+        <TextField
+          error={errUserName.length !== 0}
+          margin="normal"
+          required
+          fullWidth
+          label="Username"
+          name="userName"
+          value={userData.userName}
+          onChange={handleChange}
+          autoFocus
+          helperText={errUserName}
+        />
+        <TextField
+          error={errEmail.length !== 0}
+          margin="normal"
+          required
+          fullWidth
+          label="Email Address"
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
+          helperText={errEmail}
+        />
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Tooltip
+            title={`Password Strength is ${
+              score <= 1
+                ? "Weak"
+                : score === 2
+                ? "Average"
+                : score === 3
+                ? "Good"
+                : "Strong"
+            }`}
+          >
+            <LinearProgress
+              variant="determinate"
+              value={getPassStrentgh(score)}
+              color={score <= 1 ? "error" : score === 2 ? "warning" : "success"}
+              sx={{
+                borderRadius: 5,
+                p: 1,
+                m: 1,
+              }}
+            />
+          </Tooltip>
         </Box>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+        <TextField
+          error={errPassword.length !== 0}
+          margin="normal"
+          fullWidth
+          required
+          label="Password"
+          name="password"
+          type="password"
+          value={userData.password}
+          onChange={handleChange}
+          helperText={errPassword}
+        />
+        {userData.password.length > 4 && (
+          <Box
+            sx={{
+              width: "100%",
+            }}
+          >
+            {/* Password Strength Display */}
+
+            {feedback.warning.length > 1 && (
+              <Tooltip title="Warning">
+                <Typography
+                  variant="subtitle1"
+                  color="white"
+                  align="center"
+                  sx={{
+                    borderRadius: 2,
+                    m: 1,
+                    p: 1,
+                    background:
+                      "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
+                  }}
+                >
+                  {feedback.warning}
+                </Typography>
+              </Tooltip>
+            )}
+          </Box>
+        )}
+        {feedback.suggestions.length > 1 && (
+          <Tooltip title="Tip">
+            <Typography
+              variant="subtitle2"
+              color="#7177a8"
+              align="center"
+              
+            >
+              Tip : {feedback.suggestions}
+            </Typography>
+          </Tooltip>
+        )}
+        <TextField
+          error={errConfirmPassword.length !== 0}
+          margin="normal"
+          fullWidth
+          required
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          helperText={errConfirmPassword}
+        />
+        <TextField
+          error={errPhoneNo.length !== 0}
+          margin="normal"
+          required
+          fullWidth
+          label="Phone Number"
+          name="phoneNo"
+          value={userData.phoneNo}
+          onChange={handleChange}
+          helperText={errPhoneNo}
+        />
+
+        <Button
+          onClick={handleBack}
+          fullWidth
+          variant="outlined"
+          startIcon={<NavigateBeforeIcon />}
+          sx={{
+            mt: 2,
+          }}
+        >
           Back
         </Button>
         <Button
           variant="contained"
+          fullWidth
           onClick={moveNext}
-          sx={{ mt: 3, ml: 1 }}
           disabled={isAllFilled()}
+          endIcon={<NavigateNextIcon />}
         >
           Next
         </Button>
