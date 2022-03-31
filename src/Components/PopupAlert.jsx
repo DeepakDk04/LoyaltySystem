@@ -32,7 +32,7 @@ const PopupAlert = ({ message, clearMessage, alertType }) => {
     <Snackbar
       key={message}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      open={message.length ? true : false}
+      open={message?.length ? true : false}
       autoHideDuration={5000}
       onClose={handleErrClose}
       action={closeErrPopupAction}
