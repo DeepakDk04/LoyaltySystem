@@ -8,7 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import GppGoodIcon from "@mui/icons-material/GppGood";
-
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -108,14 +108,18 @@ const Signup3 = ({ userData, handleBack }) => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        p: 2,
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
-          marginBottom: 8,
+          my: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          gap: 1,
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -124,7 +128,7 @@ const Signup3 = ({ userData, handleBack }) => {
         <Typography component="h1" variant="h5">
           Review Your Details
         </Typography>
-        <Box component="div" sx={{ mt: 1 }}>
+        <Box component="div" sx={{ my: 1 }}>
           <TextField
             margin="normal"
             fullWidth
@@ -171,15 +175,18 @@ const Signup3 = ({ userData, handleBack }) => {
               readOnly: true,
             }}
           />
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Last Name"
-            defaultValue={userData.lastName || "not set"}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+          {userData.lastName.length > 0 && (
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Last Name"
+              defaultValue={userData.lastName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          )}
+
           <TextField
             margin="normal"
             fullWidth
@@ -198,15 +205,18 @@ const Signup3 = ({ userData, handleBack }) => {
               readOnly: true,
             }}
           />
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Bio"
-            defaultValue={userData.bio || "not set"}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+
+          {userData.bio.length > 0 && (
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Bio"
+              defaultValue={userData.bio}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          )}
           <FormControlLabel
             control={
               <Checkbox
@@ -218,6 +228,22 @@ const Signup3 = ({ userData, handleBack }) => {
             label="I agree to the terms and conditions"
           />
         </Box>
+        <Button
+          onClick={handleBack}
+          fullWidth
+          variant="outlined"
+          startIcon={<NavigateBeforeIcon />}
+        >
+          Back
+        </Button>
+        <Button
+          variant="contained"
+          onClick={createAccount}
+          fullWidth
+          disabled={!acceptTerms}
+        >
+          Confirm My Details
+        </Button>
       </Box>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -234,19 +260,7 @@ const Signup3 = ({ userData, handleBack }) => {
         clearMessage={setError}
         alertType="error"
       />
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-          Back
-        </Button>
-        <Button
-          variant="contained"
-          onClick={createAccount}
-          sx={{ mt: 3, ml: 1 }}
-          disabled={!acceptTerms}
-        >
-          Confirm
-        </Button>
-      </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}></Box>
     </Box>
   );
 };
