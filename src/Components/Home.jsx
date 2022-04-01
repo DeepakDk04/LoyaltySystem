@@ -1,7 +1,8 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import createTheme from "@mui/material/styles/createTheme";
 import CssBaseline from "@mui/material/CssBaseline";
-import { purple } from "@mui/material/colors";
-import { pink } from "@mui/material/colors";
+import purple from "@mui/material/colors/purple";
+import pink from "@mui/material/colors/pink";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
