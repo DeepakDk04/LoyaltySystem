@@ -1,8 +1,10 @@
+import { forwardRef } from "react";
+
 import IconButton from "@mui/material/IconButton";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+
 import CloseIcon from "@mui/icons-material/Close";
-import { forwardRef } from "react";
 
 const PopupAlert = ({ message, clearMessage, alertType }) => {
   const Alert = forwardRef(function Alert(props, ref) {

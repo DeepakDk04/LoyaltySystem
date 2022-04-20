@@ -2,14 +2,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 
-import car from "../../Images/car_running.gif";
-import cycle from "../../Images/cyclist.gif";
-import footerBg from "../../Images/footer_bg.png";
-import CopyRight from "../../Components/CopyRight";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+
+import CopyRight from "./CopyRight";
+
+import car from "../Images/car_running.gif";
+import cycle from "../Images/cyclist.gif";
+import footerBg from "../Images/footer_bg.png";
 
 const Footer = () => {
   return (
@@ -53,7 +56,11 @@ const Footer = () => {
                 }}
               >
                 {" "}
-                <Button variant="contained" color="primary">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<ThumbUpIcon />}
+                >
                   Subscribe
                 </Button>{" "}
               </Box>
@@ -157,6 +164,7 @@ const Footer = () => {
               width: "100%",
               height: "266px",
               animation: "move 3s linear infinite alternate",
+              WebkitAnimation: "move 3s linear infinite alternate",
               "@keyframes move": {
                 "0%": {
                   transform: "translatey(-10px)",
@@ -176,8 +184,9 @@ const Footer = () => {
                 position: "absolute",
                 bottom: 0,
                 left: "30%",
-                animation: "myfirst 22s linear infinite",
-                "@keyframes myfirst": {
+                animation: "carMove 22s linear infinite",
+                WebkitAnimation: "carMove 22s linear infinite",
+                "@keyframes carMove": {
                   "0%": {
                     left: "-25%",
                   },
@@ -196,8 +205,9 @@ const Footer = () => {
                 position: "absolute",
                 bottom: 0,
                 left: "38%",
-                animation: "myfirst 30s linear infinite",
-                "@keyframes myfirst": {
+                animation: "cycleMove 30s linear infinite",
+                WebkitAnimation: "cycleMove 30s linear infinite",
+                "@keyframes cycleMove": {
                   "0%": {
                     left: "-25%",
                   },

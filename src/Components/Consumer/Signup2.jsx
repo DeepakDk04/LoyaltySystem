@@ -1,18 +1,21 @@
+import { useState, useEffect } from "react";
+
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { useState, useEffect } from "react";
+
 //password strength check
 import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
 import zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import zxcvbnEnPackage from "@zxcvbn-ts/language-en";
-import Tooltip from "@mui/material/Tooltip";
 
 // options for password checker
 const options = {
@@ -74,6 +77,10 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
       return false;
     }
 
+    if (userData.userName.length <= 5 || userData.userName.length >= 15) {
+      setErrUserName("Minimum 6 to Maximum 14 characters allowed ");
+      return false;
+    }
     // check email
     const emailRegex = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
     if (!emailRegex.test(userData.email)) {
@@ -165,6 +172,7 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
           onChange={handleChange}
           autoFocus
           helperText={errUserName}
+          autoComplete="name"
         />
         <TextField
           error={errEmail.length !== 0}
@@ -216,6 +224,7 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
           value={userData.password}
           onChange={handleChange}
           helperText={errPassword}
+          autoComplete="new-password"
         />
         {userData.password.length > 4 && (
           <Box
@@ -247,12 +256,7 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
         )}
         {feedback.suggestions.length > 1 && (
           <Tooltip title="Tip">
-            <Typography
-              variant="subtitle2"
-              color="#7177a8"
-              align="center"
-              
-            >
+            <Typography variant="subtitle2" color="#7177a8" align="center">
               Tip : {feedback.suggestions}
             </Typography>
           </Tooltip>
@@ -267,6 +271,7 @@ const Signup2 = ({ userData, handleChange, handleNext, handleBack }) => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           helperText={errConfirmPassword}
+          autoComplete="new-password"
         />
         <TextField
           error={errPhoneNo.length !== 0}

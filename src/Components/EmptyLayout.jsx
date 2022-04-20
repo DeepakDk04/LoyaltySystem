@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 
-const ConsumerLayout = () => {
+const EmptyLayout = () => {
   return (
     <Box>
       <Outlet />
@@ -9,4 +10,4 @@ const ConsumerLayout = () => {
   );
 };
 
-export default ConsumerLayout;
+export default EmptyLayout;
