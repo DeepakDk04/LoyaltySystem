@@ -4,12 +4,11 @@ import Typography from "@mui/material/Typography";
 const CopyRight = () => {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
+      Copyright ©
       <Link color="inherit" href="#">
         Loyalty Point System
       </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      {new Date().getFullYear()}.
     </Typography>
   );
 };
