@@ -46,31 +46,8 @@ const Feautures = () => {
                   gutterBottom
                   sx={{ display: { xs: "none", md: "block" } }}
                 >
-                  <b>Feautures </b> Of{" "}
-                  <Box
-                    component="span"
-                    sx={{
-                      display: "inline-block",
-                      textTransform: "uppercase",
-                      fontWeight: "bold",
-                      backgroundImage:
-                        "linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%)",
-                      backgroundSize: "200% auto",
-                      backgroundClip: "text",
-                      fill: "transparent",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      animation: "textclip 5s linear infinite",
-                      "@keyframes textclip": {
-                        to: {
-                          backgroundPosition: "200% center",
-                        },
-                      },
-                    }}
-                  >
-                    Loyalty
-                  </Box>{" "}
-                  Points System
+                  <b>Feautures </b> Of <GlowingText text="Loyalty" /> Points
+                  System
                 </Typography>
                 <Typography
                   component="h1"
