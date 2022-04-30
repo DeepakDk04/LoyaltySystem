@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -5,10 +7,9 @@ import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
-import { useState, useEffect } from "react";
 
 const sexOptions = [{ value: "male" }, { value: "female" }, { value: "othes" }];
 

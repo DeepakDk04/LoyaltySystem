@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Avatar from "@mui/material/Avatar";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -7,19 +9,25 @@ import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import axios from "../../Utils/axios";
 import PopupAlert from "../PopupAlert";
+
+import useAuth from "../../Hooks/useAuth";
+import useLocalStorage from "../../Hooks/useLocalStorage";
+
 import { SIGNUP_URL } from "../../Utils/urls";
 
 const Signup3 = ({ userData, handleBack }) => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
+
+  const { setAuth } = useAuth();
+  const [, setUser] = useLocalStorage("user", {});
 
   const createAccount = async () => {
     // creating a new consumer account
@@ -89,20 +97,32 @@ const Signup3 = ({ userData, handleBack }) => {
     console.log("account register for ", user);
     setLoading(true);
     try {
-      const { data, status, statusText } = await axios.post(SIGNUP_URL, user);
+      const { data, status, statusText } = await axios.post(SIGNUP_URL, user, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
       console.log(data);
       console.log(status);
       console.log(statusText);
-      setLoading(false);
 
       // save userdata and redirect
-      const { token, userData } = data;
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("user", JSON.stringify(userData));
-      navigate("/consumer/dashboard");
+      const { accessToken, userData } = data;
+
+      setUser((prev) => {
+        console.log(JSON.stringify(prev));
+        return { ...prev, accessToken, userData };
+      });
+      setLoading(false);
+      setAuth({ userData, accessToken });
     } catch (err) {
-      setError(err.response.data.error);
-      console.log(err.response.data);
+      console.log(err);
+      if (err?.response?.status === 500) {
+        setError("Server is Busy, Try AfterSometime");
+      } else if (err?.response) {
+        setError(err.response?.data?.error);
+      } else {
+        setError("Could Not Reach Server");
+      }
       setLoading(false);
     }
   };
@@ -242,14 +262,28 @@ const Signup3 = ({ userData, handleBack }) => {
           fullWidth
           disabled={!acceptTerms}
         >
-          Confirm My Details
+          Create Account
         </Button>
       </Box>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
       >
-        <CircularProgress color="primary" />
+        <CircularProgress
+          color="primary"
+          aria-describedby="loading for Sign Up"
+          aria-busy={loading}
+          thickness={5}
+          size={80}
+          sx={{
+            background: "rgba( 255, 255, 255, 0.05 )",
+            border: "1px solid rgba( 255, 255, 255, 0.18 )",
+            borderRadius: "50%",
+            p: 1.5,
+            backdropFilter: "blur( 3px )",
+            WebkitBackdropFilter: "blur( 3px )",
+          }}
+        />
       </Backdrop>
       <PopupAlert
         message={
